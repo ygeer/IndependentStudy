@@ -41,5 +41,28 @@
 		<string>UIInterfaceOrientationLandscapeLeft</string>
 		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
+	<key>NSPhotoLibraryAddUsageDescription</key>
+	<string>Add photo and share</string>
+	<key>NSAppTransportSecurity</key>
+	<dict>
+		<key>NSAllowsArbitraryLoads</key>
+		<true/>
+		<key>NSExceptionDomains</key>
+		<dict>
+			<key>http://ec2-18-221-133-19.us-east-2.compute.amazonaws.com/parse</key>
+			<dict>
+				<key>NSExceptionAllowsInsecureHTTPLoads</key>
+				<true/>
+				<key>NSIncludesSubdomains</key>
+				<true/>
+			</dict>
+		</dict>
+	</dict>
+	<key>NSLocalizedDescription</key>
+	<string></string>
+	<key>NSLocationWhenInUseUsageDiscription</key>
+	<string>Because i want to know where you are</string>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>Because i want to know where you are all the time</string>
 </dict>
 </plist>
