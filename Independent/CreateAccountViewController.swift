@@ -18,10 +18,20 @@ class CreateAccountViewController: UIViewController {
         let user=PFUser()
         
         
-        user.username=username.text
+        
         user.email = username.text;
         user.password = password.text;
-        user["tutorial"]=false;
+        if let cut=(username.text)?.split(separator: "@"){
+            user.username=String(cut[0])
+        }
+        else{
+            print("Error converting email to username")
+            user.username=username.text
+        }
+        
+            
+        user["TopSpeed"]=0;
+        user["TopScore"]=0;
         user.acl?.hasPublicReadAccess = true
         // other fields can be set just like with PFObject
         user.signUpInBackground { (success, error) in

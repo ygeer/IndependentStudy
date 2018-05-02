@@ -13,6 +13,7 @@ class LoginTableViewController: UITableViewController {
 
     var refresher:UIRefreshControl=UIRefreshControl()
     var userarr=[""]
+    var view2=UIView()
     
     @IBAction func logout(_ sender: Any) {
         PFUser.logOut()
@@ -23,44 +24,40 @@ class LoginTableViewController: UITableViewController {
     
     override func viewDidLoad() {
        
-        /*let query=PFUser.query()
-        
-        query?.findObjectsInBackground(block: { (objects, error) in
-            print("step 1")
-            if error == nil {
-                print("no error")
-                print(objects)
-                if let users = objects {
-                    print("step 2")
-                    for user in users{
-                        if let user2 = user as? PFUser {
-                            print(user2)
-                            if let username=user2.username as NSString?{
-                                if let usercut=username as? String {
-                                    let cut=usercut.split(separator: "@")
-                                    //print(cut[0])
-                                    let firstindex=cut[0]
-                                    print(type(of: firstindex))
-                                    
-                                }
-                            }
-                        }
-                    }
-                } else {
-                    print("could not get user")
-                }
-            } else {
-                print("ERROR: \(error?.localizedDescription )")
-            }
-        })
- */
-        
-       
         super.viewDidLoad()
-        //print(PFUser.current()?.username!)
+        initializespinner()
+        
       
         
     }
+    func startspinner(){
+        self.view.addSubview(view2)
+    }
+    func stopspinner(){
+        let subviews=self.view.subviews
+        for subview in subviews{
+            if subview.tag==1000{
+                subview.removeFromSuperview()
+            }
+        }
+        
+    }
+    func initializespinner(){
+        self.view2=UIView(frame: CGRect(x: 0, y: 0, width: 250, height: 50))
+        self.view2.backgroundColor=UIColor.lightGray
+        self.view2.layer.cornerRadius = 10
+        let wait = UIActivityIndicatorView(frame: CGRect(x:80, y:0, width: 250, height:50))
+        wait.color=UIColor.black
+        wait.hidesWhenStopped=false
+        wait.startAnimating()
+        let text=UILabel(frame: CGRect(x: 60, y: 0, width: 150, height: 50))
+        text.text="Loading Table..."
+        self.view2.addSubview(wait)
+        self.view2.addSubview(text)
+        self.view2.center=self.view.center
+        self.view2.tag=1000
+    }
+    
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -71,19 +68,31 @@ class LoginTableViewController: UITableViewController {
 
     override func numberOfSections(in tableView: UITableView) -> Int {
         // #warning Incomplete implementation, return the number of sections
-        return 4
+        return 1
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return 4
+        let count2=count
+        //print(count2)
+        return count2
+        
     }
 
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        
         let cell = tableView.dequeueReusableCell(withIdentifier: "reuseIdentifier", for: indexPath)
-        cell.textLabel?.text=PFUser.current()?.username
-        // Configure the cell...
+        self.startspinner()
+        DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+            self.stopspinner()
+            
+            cell.textLabel?.text=usernamesaved[indexPath.row] + " - Speed : \(userspeeds[indexPath.row]) MPH; Score: \(topscores[indexPath.row])"
+            //cell.textLabel?.text="sup"
+            //print(usernamesaved[indexPath.row])
+        }
+        
+
 
         return cell
     }

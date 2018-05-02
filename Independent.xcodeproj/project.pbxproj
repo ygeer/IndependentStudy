@@ -8,6 +8,10 @@
 
 /* Begin PBXBuildFile section */
 		837FB74AA837D6471738CE12 /* Pods_Independent.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6564E48DBAD7BB8EABB74597 /* Pods_Independent.framework */; };
+		DB10A3752098DA4F009B52A1 /* GameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB10A3742098DA4F009B52A1 /* GameViewController.swift */; };
+		DB10A3772098DA98009B52A1 /* GameScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = DB10A3762098DA98009B52A1 /* GameScene.sks */; };
+		DB3146412098DF8200BBA28B /* GameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB3146402098DF8200BBA28B /* GameScene.swift */; };
+		DB3146432098E17200BBA28B /* playercar.png in Resources */ = {isa = PBXBuildFile; fileRef = DB3146422098E17100BBA28B /* playercar.png */; };
 		DB63BEB4207BBD7400709C12 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB63BEB3207BBD7400709C12 /* AppDelegate.swift */; };
 		DB63BEB6207BBD7400709C12 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB63BEB5207BBD7400709C12 /* ViewController.swift */; };
 		DB63BEB9207BBD7400709C12 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DB63BEB7207BBD7400709C12 /* Main.storyboard */; };
@@ -63,6 +67,10 @@
 		07108AEB3BFC5E251BB45735 /* Pods-Independent.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Independent.release.xcconfig"; path = "Pods/Target Support Files/Pods-Independent/Pods-Independent.release.xcconfig"; sourceTree = "<group>"; };
 		6564E48DBAD7BB8EABB74597 /* Pods_Independent.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Independent.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		94EC9E229AF69236915C2CC4 /* Pods-Independent.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Independent.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Independent/Pods-Independent.debug.xcconfig"; sourceTree = "<group>"; };
+		DB10A3742098DA4F009B52A1 /* GameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameViewController.swift; sourceTree = "<group>"; };
+		DB10A3762098DA98009B52A1 /* GameScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = GameScene.sks; sourceTree = "<group>"; };
+		DB3146402098DF8200BBA28B /* GameScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameScene.swift; sourceTree = "<group>"; };
+		DB3146422098E17100BBA28B /* playercar.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = playercar.png; path = ../../../playercar.png; sourceTree = "<group>"; };
 		DB63BEB0207BBD7400709C12 /* Independent.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Independent.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DB63BEB3207BBD7400709C12 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		DB63BEB5207BBD7400709C12 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -192,6 +200,10 @@
 				DB63BF2B207E5BA200709C12 /* forgotpasswordViewController.swift */,
 				DB63BEEB207C03B700709C12 /* AddphotoViewController.swift */,
 				DB63BF2D207E5F3900709C12 /* NavigationViewController.swift */,
+				DB10A3742098DA4F009B52A1 /* GameViewController.swift */,
+				DB10A3762098DA98009B52A1 /* GameScene.sks */,
+				DB3146402098DF8200BBA28B /* GameScene.swift */,
+				DB3146422098E17100BBA28B /* playercar.png */,
 				DBD86DC1208FA86800C59E81 /* audi.jpg */,
 				DBD86DBF208FA82B00C59E81 /* mustang.jpg */,
 				DBD86DBD208FA7B200C59E81 /* challenger.jpg */,
@@ -407,8 +419,10 @@
 				DBD86DC0208FA82C00C59E81 /* mustang.jpg in Resources */,
 				DBD86DBC208FA55400C59E81 /* space.jpg in Resources */,
 				DBD86D7E208FA14900C59E81 /* Assets.xcassets in Resources */,
+				DB10A3772098DA98009B52A1 /* GameScene.sks in Resources */,
 				DBD86DC2208FA86800C59E81 /* audi.jpg in Resources */,
 				DBD86DBE208FA7B200C59E81 /* challenger.jpg in Resources */,
+				DB3146432098E17200BBA28B /* playercar.png in Resources */,
 				DB63BEB9207BBD7400709C12 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -471,7 +485,7 @@
 		};
 		4E72EFE2C3195EC7DA5689B9 /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
+			buildActionMask = 12;
 			files = (
 			);
 			inputPaths = (
@@ -511,10 +525,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DB10A3752098DA4F009B52A1 /* GameViewController.swift in Sources */,
 				DB63BF2C207E5BA200709C12 /* forgotpasswordViewController.swift in Sources */,
 				DB63BEE4207BD53700709C12 /* CreateAccountViewController.swift in Sources */,
 				DB63BEE6207BD7FC00709C12 /* LoginTableViewController.swift in Sources */,
 				DB63BF2E207E5F3900709C12 /* NavigationViewController.swift in Sources */,
+				DB3146412098DF8200BBA28B /* GameScene.swift in Sources */,
 				DB63BEF0207C0B3700709C12 /* FeedTableViewCell.swift in Sources */,
 				DB63BEE8207BF80000709C12 /* FeedTableViewController.swift in Sources */,
 				DB63BEEC207C03B700709C12 /* AddphotoViewController.swift in Sources */,
@@ -717,13 +733,16 @@
 			baseConfigurationReference = 94EC9E229AF69236915C2CC4 /* Pods-Independent.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = QX726V7QL3;
 				INFOPLIST_FILE = Independent/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = YoniGeer.Independent;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 4.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -732,13 +751,16 @@
 			baseConfigurationReference = 07108AEB3BFC5E251BB45735 /* Pods-Independent.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = QX726V7QL3;
 				INFOPLIST_FILE = Independent/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = YoniGeer.Independent;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 4.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};

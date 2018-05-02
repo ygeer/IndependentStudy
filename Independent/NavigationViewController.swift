@@ -9,6 +9,7 @@
 import UIKit
 import CoreLocation
 import MapKit
+import Parse
 
 class NavigationViewController: UIViewController, CLLocationManagerDelegate, MKMapViewDelegate  {
     var speedarr=[Double]()
@@ -16,6 +17,9 @@ class NavigationViewController: UIViewController, CLLocationManagerDelegate, MKM
     @IBOutlet var speed: UILabel!
     @IBOutlet var map: MKMapView!
     var locationManager=CLLocationManager()
+    var toptest: Double=0
+    var bool=0
+    let user=PFUser.current()
     
     override func viewDidLoad() {
     
@@ -24,42 +28,57 @@ class NavigationViewController: UIViewController, CLLocationManagerDelegate, MKM
         locationManager.desiredAccuracy=kCLLocationAccuracyBest
         locationManager.requestWhenInUseAuthorization()
         locationManager.startUpdatingLocation()
+        
 
-        // Do any additional setup after loading the view.
     }
+    
+   
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         let userLocation: CLLocation = locations[0]
-        var toptest: Double=0
-        if toptest<userLocation.speed{
-            toptest=userLocation.speed
-            if let speedstring=(toptest as? String){
-                topspeed.text=speedstring
+        
+        
+        if let currentusertopspeed=user!["TopSpeed"] as? Double{
+            if bool==0{
+                toptest=currentusertopspeed
+                topspeed.text=String(currentusertopspeed)
+                user!["TopSpeed"]=Int(toptest)
+                user?.saveInBackground()
+                bool=1
+                print("once")
             }
         }
+            if toptest<userLocation.speed{
+                toptest=userLocation.speed
+                topspeed.text=String(toptest)
+                user!["TopSpeed"]=Int(toptest)
+                user?.saveInBackground()
+            }
         
         
         
-         let latitude=userLocation.coordinate.latitude
-         let longitude=userLocation.coordinate.longitude
+        
+        
+        let latitude=userLocation.coordinate.latitude
+        let longitude=userLocation.coordinate.longitude
          
-         let latdelta:CLLocationDegrees = 0.05
-         let londelta:CLLocationDegrees = 0.05
+        let latdelta:CLLocationDegrees = 0.05
+        let londelta:CLLocationDegrees = 0.05
          
-         let span: MKCoordinateSpan = MKCoordinateSpan(latitudeDelta: latdelta, longitudeDelta: londelta)
+        let span: MKCoordinateSpan = MKCoordinateSpan(latitudeDelta: latdelta, longitudeDelta: londelta)
          
          
-         let coordinates: CLLocationCoordinate2D = CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
+        let coordinates: CLLocationCoordinate2D = CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
          
-         let region: MKCoordinateRegion = MKCoordinateRegion(center: coordinates, span: span)
+        let region: MKCoordinateRegion = MKCoordinateRegion(center: coordinates, span: span)
          
-         self.map.setRegion(region, animated: true)
+        self.map.setRegion(region, animated: true)
         // print(locations[0])
         
         self.speed.text=String(userLocation.speed)
         speedarr.append(Double(userLocation.speed))
        
         
-        print(userLocation)
+        //print(userLocation)
     }
 
     override func didReceiveMemoryWarning() {
