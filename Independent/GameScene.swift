@@ -68,13 +68,15 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     func starttimers(){
         
         oiltimer=Timer.scheduledTimer(withTimeInterval: 2, repeats: true, block: { (timer) in
-            self.createoil()
+            self.create(name: "oil", speed: 5, category: self.oilcategory, zpos: 0)
         })
         cartimer=Timer.scheduledTimer(withTimeInterval: 3, repeats: true, block: { (timer) in
-            self.createpolice()
+            self.create(name: "policecar", speed: 5, category: self.truckcategory, zpos: 0)
         })
         linetimer=Timer.scheduledTimer(withTimeInterval: 0.5, repeats: true, block: { (timer) in
-            self.createline()
+            self.create(name: "whiteline", speed: 5, category: 0, zpos: -5)
+            self.create(name: "whiteline2", speed: 5, category: 0, zpos: -5)
+            self.create(name: "StreetLine", speed: 5, category: 0, zpos: 7)
         })
     }
     
@@ -119,89 +121,54 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     }
     
     
-    
-// --------------Creations, Collisions and Gameover--------------------------------\\
-    func createoil(){
-        let oil=SKSpriteNode(imageNamed: "oil")
-        oil.physicsBody=SKPhysicsBody(rectangleOf: oil.size)
-        oil.physicsBody?.affectedByGravity=false
-        oil.physicsBody?.categoryBitMask=oilcategory
-        oil.physicsBody?.contactTestBitMask=oilcategory
-        oil.physicsBody?.collisionBitMask=0
+    func create(name: String, speed: Double, category: UInt32, zpos: CGFloat){
+        let sprite=SKSpriteNode(imageNamed: name)
+        sprite.physicsBody=SKPhysicsBody(rectangleOf: sprite.size)
+        sprite.physicsBody?.affectedByGravity=false
+        sprite.physicsBody?.categoryBitMask=category
+        sprite.physicsBody?.contactTestBitMask=category
+        sprite.physicsBody?.collisionBitMask=0
+        if name=="policecar"{
+            sprite.size=CGSize(width: 100, height: 200)
+        }
+        if name=="StreetLine"{
+            sprite.size=CGSize(width: 50, height: 100)
+            sprite.zPosition = zpos
+        }
+        if name=="whiteline" || name=="whiteline2"{
+            sprite.zPosition=zpos
+            sprite.size=CGSize(width: 25, height: 50)
+        }
         
         
-        let maxx=size.width/2 - oil.size.width/2
-        let minx = -(size.width/2 + oil.size.width/2)
+        let maxx=size.width/2 - sprite.size.width/2
+        let minx = -(size.width/2 + sprite.size.width/2)
         let range=maxx-minx
         let coiny = maxx - CGFloat(arc4random_uniform(UInt32(range)))
         
-        addChild(oil)
         
-        oil.position=CGPoint(x: coiny, y: size.height/2+oil.size.width)
-        let moveleft=SKAction.moveBy(x: 0, y: -size.height-oil.size.height , duration: 5)
-        oil.run(SKAction.sequence([moveleft, SKAction.removeFromParent()]))
+        addChild(sprite)
+        
+        if name == "StreetLine"{
+            print("Yellow")
+            sprite.position=CGPoint(x: 0, y: size.height/2)
+        }
+        else if name == "whiteline"{
+            print("White")
+            sprite.position=CGPoint(x: size.width/4, y: size.height/2)
+        }
+        else if name == "whiteline2"{
+            print("White2")
+            sprite.position=CGPoint(x: -size.width/4, y: size.height/2)
+        }
+        else{
+            sprite.position=CGPoint(x: coiny, y: size.height/2+sprite.size.width)
+        }
+        
+        let direction=SKAction.moveBy(x: 0, y: -size.height-sprite.size.height , duration: speed)
+        sprite.run(SKAction.sequence([direction, SKAction.removeFromParent()]))
     }
-    
-    func createpolice(){
-        let police=SKSpriteNode(imageNamed: "policecar")
-        police.physicsBody=SKPhysicsBody(rectangleOf: police.size)
-    
-        police.size=CGSize(width: 100, height: 200)
-        police.physicsBody?.affectedByGravity=false
-        police.physicsBody?.categoryBitMask=truckcategory
-        police.physicsBody?.contactTestBitMask=truckcategory
-        police.physicsBody?.collisionBitMask=0
-        
-        
-        let maxx=size.width/2 - police.size.width/2
-        let minx = -(size.width/2 + police.size.width/2)
-        let range=maxx-minx
-        let coiny = maxx - CGFloat(arc4random_uniform(UInt32(range)))
-        
-        addChild(police)
-        
-        police.position=CGPoint(x: coiny, y: size.height/2)
-        let moveleft=SKAction.moveBy(x:0 , y: -size.height, duration: 5)
-        police.run(SKAction.sequence([moveleft, SKAction.removeFromParent()]))
-    }
-    
-    func createline(){
-        let yellowline=SKSpriteNode(imageNamed: "StreetLine")
-        yellowline.size=CGSize(width: 50, height: 100)
-        yellowline.physicsBody?.affectedByGravity=false
-        yellowline.physicsBody?.collisionBitMask=0
-        yellowline.zPosition = -7
-        
-        let whiteline=SKSpriteNode(imageNamed: "whiteline")
-        whiteline.size=CGSize(width: 25, height: 50)
-        whiteline.physicsBody?.affectedByGravity=false
-        whiteline.physicsBody?.collisionBitMask=0
-        whiteline.zPosition = -7
-        
-        let whiteline2=SKSpriteNode(imageNamed: "whiteline")
-        whiteline2.size=CGSize(width: 25, height: 50)
-        whiteline2.physicsBody?.affectedByGravity=false
-        whiteline2.physicsBody?.collisionBitMask=0
-        whiteline2.zPosition = -5
-        
-        addChild(yellowline)
-        addChild(whiteline)
-        addChild(whiteline2)
-        
-        yellowline.position=CGPoint(x: 0, y: size.height/2)
-        
-        whiteline.position=CGPoint(x: size.width/4, y: size.height/2)
-        whiteline2.position=CGPoint(x: -size.width/4, y: size.height/2)
-        
-        let movedown=SKAction.moveBy(x:0 , y: -size.height, duration: 3)
-        
-        yellowline.run(SKAction.sequence([movedown, SKAction.removeFromParent()]))
-        print("white")
-        whiteline.run(SKAction.sequence([movedown, SKAction.removeFromParent()]))
-        print("white2")
-        whiteline2.run(SKAction.sequence([movedown, SKAction.removeFromParent()]))
-    }
-    
+
     func gameover(){
         scene?.isPaused=true
         oiltimer?.invalidate()
